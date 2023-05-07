@@ -5,8 +5,8 @@
 import numpy as np
 import cv2
 
-events = [i for i in dir(cv2) if 'EVENT' in i]
-print(events)
+# events = [i for i in dir(cv2) if 'EVENT' in i]
+# print(events)
 
 
 def click_event(event, x, y, flags, param):
