@@ -4,7 +4,7 @@
 
 import cv2
 
-cap = cv2.VideoCapture(0)       #select the first camera
+cap = cv2.VideoCapture(1)       #select the first camera
                                 #the arguement could be a file
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter('output.avi',fourcc, 20, (640,480))

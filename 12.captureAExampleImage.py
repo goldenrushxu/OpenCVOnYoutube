@@ -1,9 +1,10 @@
 # tasks to do
 # V 1. display menu
-# 1.1 use + and - to adjust sensitivity
-# 2. reduce display FPS, to increase response
+# V 1.1 use + and - to adjust sensitivity
+# V don't need to 2. reduce display FPS, to increase response
 # 3. locate base points, trim images according to base points
 # 4. rotate images according to base points
+# 5. stop auto focusing
 
 
 
@@ -20,7 +21,7 @@ cv2.imshow('original',img1)       #show what's been read
 
 # ==========================================
 # show live video
-cap = cv2.VideoCapture(0)       #select the first camera
+cap = cv2.VideoCapture(1)       #select the second camera
 cap.set(cv2.CAP_PROP_AUTO_EXPOSURE,0)
 cap.set(cv2.CAP_PROP_EXPOSURE,0.2)
                                 #the arguement could be a file
@@ -63,6 +64,9 @@ while (cap.isOpened()):
             cv2.imwrite('example.jpg', frame)      #save current picture into file
             img1 = cv2.imread('example.jpg')            #read example image
             gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+            cv2.namedWindow('original',cv2.WINDOW_NORMAL)
+            cv2.resizeWindow('original',1600,900)
+            cv2.imshow('original',img1)       #show what's been read
 
         gray2 = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
 
@@ -78,7 +82,8 @@ while (cap.isOpened()):
         # Draw rectangles around the contours of the differences
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 1)
+            if w>10:
+                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 0, 255), 2)
 
         datet = str(datetime.datetime.now())
         sens_str = "Sensitivity: " + str((200-Sens)/20)
